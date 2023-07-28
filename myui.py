@@ -8,16 +8,16 @@ from langchain.vectorstores import FAISS
 from langchain.llms import CTransformers
 
 
-st.set_page_config(page_title="EZGov Chat", page_icon="🤖", layout="wide", )     
+st.set_page_config(page_title="MYPAGE", page_icon="", layout="wide", )     
 st.markdown(f"""
             <style>
-            .stApp {{background-image: url("https://images.unsplash.com/photo-1522152246188-e857196992da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"); 
+            .stApp {{background-image: url("URLPATH"); 
                      background-attachment: fixed;
                      background-size: cover}}
          </style>
          """, unsafe_allow_html=True)
          
-st.title("EZGov Chat")
+st.title("MYPAGE")
 
 # set prompt template
 qa_template = """Use the following pieces of context to answer the question at the end. If you don't know the answer, just say that you don't know, don't try to make up an answer.
@@ -27,7 +27,7 @@ Answer:"""
 prompt = PromptTemplate(template=qa_template, input_variables=["context", "question"])
 
 # CTransformers wrapper for GGML model
-llm = CTransformers(model='D:/GPT Models/llama-2-7b-chat.ggmlv3.q8_0.bin', # Location of downloaded GGML model
+llm = CTransformers(model='/path/to/model/', # Location of downloaded GGML model
                     model_type='llama', # Model type 
                     config={'max_new_tokens': 256, #adjust as needed
                             'temperature': 0.01}) #adjust as needed
@@ -62,7 +62,7 @@ if __name__ == "__main__":
     # setup QA object
     dbqa = setup_dbqa()
    
-    question = st.text_input("What would you like to search in the Medicaid documents?",)    
+    question = st.text_input("What would you like to search for in the documents?",)    
     if question:
         response = dbqa({'query': question})        
         st.write(response)        
